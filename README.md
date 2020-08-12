@@ -17,7 +17,7 @@ make
 ### References
 
 ---
-- https://medium.com/inside-bukalapak/recipe-to-boil-web-automation-with-go-language-98b715800d70?source=your_stories_page---------------------------
+- https://medium.com/inside-bukalapak/recipe-to-boil-web-automation-with-go-language-98b715800d70
 - https://golang.org/pkg/net/http/
 - https://crudcrud.com/
 - https://github.com/cucumber/godog
