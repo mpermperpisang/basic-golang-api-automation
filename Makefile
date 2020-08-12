@@ -1,5 +1,9 @@
-all: install-package
+all: build-package run-package
 
-install-package:
-	@GO111MODULE=on go get github.com/cucumber/godog/cmd/godog@v0.10.0
-	@echo "Install package successfully"
+build-package:
+	docker build -t basic-golang-api-automation-docker .
+	@echo "Build golang-automation-docker successfully"
+
+run-package:
+	docker run basic-golang-api-automation-docker
+	@echo "Run golang-automation-docker successfully"
