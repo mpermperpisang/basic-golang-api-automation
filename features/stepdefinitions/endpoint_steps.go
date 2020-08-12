@@ -12,14 +12,14 @@ import (
 	"github.com/yalp/jsonpath"
 )
 
-var api string
+var urlEndpoint string
 var getEndpoint, postEndpoint, putEndpoint, deleteEndpoint *http.Request
 var getResponse, postResponse, putResponse, deleteResponse *http.Response
 var id, jsonResponse interface{}
 
 // GivenEndpoint : define endpoint
 func GivenEndpoint(endpoint string) error {
-	api = endpoint
+	urlEndpoint = os.Getenv("API_ENDPOINT") + endpoint
 
 	return nil
 }
@@ -41,7 +41,7 @@ func GetEndpoint() error {
 	var err error
 
 	client := &http.Client{}
-	getEndpoint, err = http.NewRequest(http.MethodGet, os.Getenv("API_ENDPOINT")+api, nil)
+	getEndpoint, err = http.NewRequest(http.MethodGet, urlEndpoint, nil)
 	helper.LogPanicln(err)
 	getResponse, err = client.Do(getEndpoint)
 	helper.LogPanicln(err)
@@ -61,7 +61,7 @@ func PostEndpoint() error {
 		}`)
 
 	client := &http.Client{}
-	postEndpoint, err := http.NewRequest(http.MethodPost, os.Getenv("API_ENDPOINT")+api, bytes.NewBuffer(body))
+	postEndpoint, err := http.NewRequest(http.MethodPost, urlEndpoint, bytes.NewBuffer(body))
 	helper.LogPanicln(err)
 
 	postEndpoint.Header.Set("Content-Type", "application/json")
@@ -84,7 +84,7 @@ func PutEndpoint() error {
 		}`)
 
 	client := &http.Client{}
-	putEndpoint, err := http.NewRequest(http.MethodPut, os.Getenv("API_ENDPOINT")+api+"/"+fmt.Sprintf("%s", id), bytes.NewBuffer(body))
+	putEndpoint, err := http.NewRequest(http.MethodPut, urlEndpoint+"/"+fmt.Sprintf("%s", id), bytes.NewBuffer(body))
 	helper.LogPanicln(err)
 
 	putEndpoint.Header.Set("Content-Type", "application/json")
@@ -100,7 +100,7 @@ func DeleteEndpoint() error {
 	var err error
 
 	client := &http.Client{}
-	deleteEndpoint, err := http.NewRequest(http.MethodDelete, os.Getenv("API_ENDPOINT")+api+"/"+fmt.Sprintf("%s", id), nil)
+	deleteEndpoint, err := http.NewRequest(http.MethodDelete, urlEndpoint+"/"+fmt.Sprintf("%s", id), nil)
 	helper.LogPanicln(err)
 	deleteResponse, err = client.Do(deleteEndpoint)
 	helper.LogPanicln(err)
