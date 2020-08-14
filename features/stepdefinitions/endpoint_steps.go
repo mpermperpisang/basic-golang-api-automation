@@ -15,7 +15,7 @@ import (
 var urlEndpoint string
 var getEndpoint, postEndpoint, putEndpoint, deleteEndpoint *http.Request
 var getResponse, postResponse, putResponse, deleteResponse *http.Response
-var id, jsonResponse interface{}
+var id interface{}
 
 // GivenEndpoint : define endpoint
 func GivenEndpoint(endpoint string) error {
@@ -26,6 +26,8 @@ func GivenEndpoint(endpoint string) error {
 
 // GetIDCRUD : get ID for PUT and DELETE
 func GetIDCRUD() error {
+	var jsonResponse interface{}
+
 	jsonPath, _ := jsonpath.Prepare("$._id")
 	responseBody, _ := ioutil.ReadAll(postResponse.Body)
 
